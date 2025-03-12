@@ -43,7 +43,11 @@ const Cart = () => {
     })();
   };
   return (
-    <div className={`${albumState.albumList.length > 0 ? "bg-light p-3" : ""}`}>
+    <div
+      className={`container-fluid ${
+        albumState.albumList.length > 0 ? "bg-light p-3" : ""
+      } `}
+    >
       <table className="table align-middle">
         <tbody>
           {albumState.albumList?.map((item) => {
@@ -76,8 +80,8 @@ const Cart = () => {
                   >
                     <img
                       className="table-image object-cover"
-                      width="200"
-                      height="200"
+                      width="80"
+                      height="80"
                       src={`${item?.urls?.small_s3}`}
                       alt=""
                     />
@@ -86,7 +90,7 @@ const Cart = () => {
                 <td className="text-end ">
                   <span
                     className="d-inline-block text-truncate"
-                    style={{ maxWidth: "150px" }}
+                    style={{ maxWidth: "80px" }}
                   >
                     {item?.description}
                   </span>

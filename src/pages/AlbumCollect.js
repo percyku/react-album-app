@@ -2,7 +2,7 @@ import React from "react";
 
 const AlbumCollect = () => {
   return (
-    <div>
+    <div className="container">
       <h1>AlbumCollect</h1>
     </div>
   );

@@ -100,7 +100,7 @@ function Login() {
   // }, [watchForm]); // 將新變數傳入
 
   return (
-    <>
+    <div className="container">
       <Loading isLoading={isLoading} />
       {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -176,7 +176,7 @@ function Login() {
           登入
         </button>
       </form>
-    </>
+    </div>
   );
 }
 

@@ -47,7 +47,8 @@ const AlbumChosen = () => {
   return (
     <>
       <div className="row">
-        <div className="col-md-9 ">
+        {/* <div className="col-md-9 "> */}
+        <div className="col-md-12 ">
           <div className="row row-cols-3 g-3 ">
             {albumsData.map((item) => {
               return (
@@ -63,10 +64,10 @@ const AlbumChosen = () => {
             photoUrl={photoUrl}
           />
         </div>
-        <div className="col-md-3">
+        {/* <div className="col-md-3">
           <h1>album cart</h1>
           <Cart />
-        </div>
+        </div> */}
       </div>
     </>
   );

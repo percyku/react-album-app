@@ -86,7 +86,7 @@ function Register() {
   // }, [watchForm]); // 將新變數傳入
 
   return (
-    <>
+    <div className="container">
       <Loading isLoading={isLoading} />
 
       {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
@@ -151,7 +151,7 @@ function Register() {
           註冊
         </button>
       </form>
-    </>
+    </div>
   );
 }
 

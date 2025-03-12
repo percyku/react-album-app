@@ -37,7 +37,7 @@ const Navbar = () => {
 
               <ul className="navbar-nav ">
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/album/collect">
+                  <NavLink className="nav-link" to="/collect">
                     相片收藏
                   </NavLink>
                 </li>
@@ -51,16 +51,6 @@ const Navbar = () => {
               </ul>
             </div>
           )}
-
-          {/* <div className="collapse navbar-collapse ">
-            <ul className="navbar-nav ">
-              <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/profile">
-                  個人資料
-                </NavLink>
-              </li>
-            </ul>
-          </div> */}
 
           <div className="collapse navbar-collapse justify-content-end">
             {state.username === "" && (
@@ -80,40 +70,16 @@ const Navbar = () => {
             {state.username !== "" && (
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <a
+                  <NavLink
                     className="nav-link"
                     aria-current="page"
                     onClick={handlerLogout}
                   >
                     登出
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
             )}
-
-            {/* <ul className="navbar-nav">
-              <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/login">
-                  登入
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/register">
-                  註冊
-                </NavLink>
-              </li>
-            </ul>
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  aria-current="page"
-                  onClick={handlerLogout}
-                >
-                  登出
-                </a>
-              </li>
-            </ul> */}
           </div>
         </div>
       </nav>

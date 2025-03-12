@@ -62,7 +62,7 @@ function Profile() {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <EditModal
         modalRef={profileModalRef}
         modalTitle={"修改個人資料"}
@@ -207,7 +207,7 @@ function Profile() {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
