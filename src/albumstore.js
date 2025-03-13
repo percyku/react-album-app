@@ -1,5 +1,13 @@
 import { createContext } from "react";
 
+export const alumList = [
+  "human",
+  "animal",
+  "building",
+  "nature",
+  "ocean",
+  "mountain",
+];
 export const albumInit = { albumList: [] };
 // export const albumInit = {
 //   albumList: [

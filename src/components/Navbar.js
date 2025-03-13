@@ -29,7 +29,7 @@ const Navbar = () => {
             <div className="collapse navbar-collapse ">
               <ul className="navbar-nav ">
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/album">
+                  <NavLink className="nav-link" to="/album/search">
                     相片查詢
                   </NavLink>
                 </li>

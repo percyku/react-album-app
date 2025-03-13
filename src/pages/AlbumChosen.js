@@ -6,20 +6,54 @@ import {
   useContext,
   useCallback,
 } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Modal } from "bootstrap";
 import PicModal from "../components/PicModal";
 import Card from "../components/album/Card";
-import Cart from "../components/album/Cart";
+import Loading from "../components/Loading";
 import { UserContext } from "../store";
-import albumsData from "../assets/albumsData";
+import {
+  humanData,
+  buildingData,
+  animalData,
+  oceanData,
+  natureData,
+  mountainData,
+} from "../assets/albumsData";
 
 const AlbumChosen = () => {
   const [userState] = useContext(UserContext);
 
+  const { id } = useParams();
   const modalRef = useRef(null);
   const myModal = useRef(null);
   const [photoUrl, setPhotoUrl] = useState("");
+  const [jsonData, setJsonData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    setTimeout(() => {
+      if (id === "human") {
+        setJsonData([...humanData]);
+      } else if (id === "animal") {
+        setJsonData([...animalData]);
+      } else if (id === "building") {
+        setJsonData([...buildingData]);
+      } else if (id === "nature") {
+        setJsonData([...natureData]);
+      } else if (id === "ocean") {
+        setJsonData([...oceanData]);
+      } else if (id === "mountain") {
+        setJsonData([...mountainData]);
+      }
+      setIsLoading(false);
+    }, 1500);
+
+    // console.log(window.scrollTo);
+  }, [id]);
 
   useEffect(() => {
     console.log("initial modalRef");
@@ -45,12 +79,13 @@ const AlbumChosen = () => {
   };
 
   return (
-    <>
-      <div className="row">
+    <div>
+      <Loading isLoading={isLoading} />
+      <div className="row ">
         {/* <div className="col-md-9 "> */}
         <div className="col-md-12 ">
           <div className="row row-cols-3 g-3 ">
-            {albumsData.map((item) => {
+            {jsonData?.map((item) => {
               return (
                 <div className="col" key={item.id}>
                   <Card item={item} getSinglePhoto={getSinglePhoto} />
@@ -69,7 +104,7 @@ const AlbumChosen = () => {
           <Cart />
         </div> */}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -11,6 +11,7 @@ import AlbumLayout from "./pages/AlbumLayout";
 import AlbumSearch from "./pages/AlbumSearch";
 import AlbumCollect from "./pages/AlbumCollect";
 import AlbumChosen from "./pages/AlbumChosen";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -22,9 +23,11 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/collect" element={<AlbumCollect />}></Route>
-          <Route path="/album" element={<AlbumLayout />}>
-            <Route index element={<AlbumChosen />}></Route>
+          <Route path="/album/search" element={<AlbumLayout />}>
+            <Route index element={<AlbumSearch />}></Route>
+            <Route path=":id" element={<AlbumChosen />}></Route>
           </Route>
+          <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>
     </div>

@@ -6,8 +6,8 @@ import {
   useContext,
   useReducer,
 } from "react";
-import { Outlet } from "react-router-dom";
-import { AlbumContext, albumReducer, albumInit } from "../albumstore";
+import { Outlet, NavLink } from "react-router-dom";
+import { AlbumContext, albumReducer, albumInit, alumList } from "../albumstore";
 
 import Cart from "../components/album/Cart";
 
@@ -18,9 +18,26 @@ const AlbumLayout = () => {
     <div className="d-flex">
       <AlbumContext.Provider value={reducer}>
         <aside className="side-left vh-100 border-end">
-          <div className="vw-100">左側欄</div>
+          <div className="vw-100">
+            <h3>左側欄</h3>
+            <ul>
+              <li>
+                <NavLink className="nav-link" to="">
+                  搜尋圖片
+                </NavLink>
+              </li>
+              {alumList.map((item) => {
+                return (
+                  <li key={item}>
+                    <NavLink to={`/album/search/${item}`}>{item}</NavLink>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </aside>
-        <main className="main  vh-100 overflow-auto">
+        <main className="main ">
+          {/* <main className="main  vh-100 vw-100 overflow-scroll "> */}
           <Outlet />
         </main>
 
