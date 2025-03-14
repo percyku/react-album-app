@@ -9,18 +9,18 @@ const AlbumSearch = () => {
     }
   };
   return (
-    <div className="container">
-      <div>
-        <label htmlFor="filter">搜尋</label>
-        <input
-          type="text"
-          id="filter"
-          className="form-control"
-          defaultValue={filterString}
-          onKeyPress={onSearchEnter}
-        />
-      </div>
-    </div>
+    <>
+      <label htmlFor="filter">搜尋</label>
+      <input
+        type="text"
+        id="filter"
+        className="form-control"
+        defaultValue={filterString}
+        onKeyPress={onSearchEnter}
+      />
+
+      <input type="text" />
+    </>
   );
 };
 

@@ -2,7 +2,6 @@ import { React, useContext } from "react";
 import { AlbumContext } from "../../albumstore";
 const Card = ({ item, getSinglePhoto }) => {
   const [albumState, albumDispatch] = useContext(AlbumContext);
-
   const handleAddToAlbumCart = (picture) => {
     console.log("handleAddToAlbumCart", picture);
     albumDispatch({
@@ -23,18 +22,6 @@ const Card = ({ item, getSinglePhoto }) => {
           getSinglePhoto(item.id);
         }}
       >
-        {/* <span className="badge rounded-pill  position-absolute top-0 start-100 translate-middle">
-          <input
-            className={`form-check-input`}
-            type="checkbox"
-            name="checkbox"
-            id={item.id}
-            onClick={(e) => {
-              e.preventDefault();
-              console.log("test");
-            }}
-          />
-        </span> */}
         <img
           className="card-img object-cover"
           width="100%"
@@ -48,13 +35,6 @@ const Card = ({ item, getSinglePhoto }) => {
         href="#"
         className="btn btn-outline-dark w-100"
         onClick={() => {
-          // dispatch({
-          //   type: "ADD_TO_CART",
-          //   payload: {
-          //     ...product,
-          //     quantity: 1,
-          //   },
-          // });
           handleAddToAlbumCart(item);
         }}
       >

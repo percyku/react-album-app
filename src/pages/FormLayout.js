@@ -24,11 +24,7 @@ function FormLayout() {
     <>
       <UserContext.Provider value={reducer}>
         <Navbar />
-
-        <div>
-          {/* <div className="container"> */}
-          <Outlet />
-        </div>
+        <Outlet />
       </UserContext.Provider>
     </>
   );

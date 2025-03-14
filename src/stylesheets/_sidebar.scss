@@ -3,12 +3,15 @@ $side-width-right: 350px;
 
 .side-left {
   width: $side-width-left;
+  top: 100px;
 }
 
 .side-right {
   width: $side-width-right;
+  top: 100px;
 }
 
 .main {
   width: calc(100vw -#{$side-width-left}-#{$side-width-right});
+  left: $side-width-left;
 }

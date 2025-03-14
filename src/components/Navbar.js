@@ -19,7 +19,10 @@ const Navbar = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary mb-5">
+      <nav
+        className="navbar navbar-expand-lg bg-body-tertiary mb-5 sticky-top"
+        // style={{ bottom: "10px" }}
+      >
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="/">
             Navbar

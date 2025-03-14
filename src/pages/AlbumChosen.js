@@ -24,6 +24,7 @@ import {
 
 const AlbumChosen = () => {
   const [userState] = useContext(UserContext);
+  console.log("AlbumChosen", userState);
 
   const { id } = useParams();
   const modalRef = useRef(null);
@@ -34,7 +35,7 @@ const AlbumChosen = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     setTimeout(() => {
       if (id === "human") {
         setJsonData([...humanData]);
@@ -51,17 +52,15 @@ const AlbumChosen = () => {
       }
       setIsLoading(false);
     }, 1500);
-
-    // console.log(window.scrollTo);
   }, [id]);
 
   useEffect(() => {
-    console.log("initial modalRef");
+    // console.log("initial modalRef");
     myModal.current = new Modal(modalRef.current);
   }, []);
 
   const closeModal = useCallback(() => {
-    console.log("closeModal");
+    // console.log("closeModal");
     myModal.current.hide();
   }, []);
 
@@ -72,7 +71,6 @@ const AlbumChosen = () => {
         `${api}${id}?client_id=${userState.accessKey}`
       );
       setPhotoUrl(result.data.urls.regular);
-      console.log(result, photoUrl);
       // 打開 Modal
       myModal.current.show();
     })();
