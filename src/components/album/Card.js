@@ -19,7 +19,7 @@ const Card = ({ item, getSinglePhoto }) => {
         href="#"
         onClick={(e) => {
           e.preventDefault();
-          getSinglePhoto(item.id);
+          getSinglePhoto(item);
         }}
       >
         <img

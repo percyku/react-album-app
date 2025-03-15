@@ -64,14 +64,15 @@ const AlbumChosen = () => {
     myModal.current.hide();
   }, []);
 
-  const getSinglePhoto = (id) => {
+  const getSinglePhoto = (item) => {
     (async () => {
-      const api = "https://api.unsplash.com/photos/";
-      const result = await axios(
-        `${api}${id}?client_id=${userState.accessKey}`
-      );
-      setPhotoUrl(result.data.urls.regular);
-      // 打開 Modal
+      // const api = "https://api.unsplash.com/photos/";
+      // const result = await axios(
+      //   `${api}${id}?client_id=${userState.accessKey}`
+      // );
+      // setPhotoUrl(result.data.urls.regular);
+      setPhotoUrl(item?.urls?.raw);
+
       myModal.current.show();
     })();
   };
@@ -97,10 +98,6 @@ const AlbumChosen = () => {
             photoUrl={photoUrl}
           />
         </div>
-        {/* <div className="col-md-3">
-          <h1>album cart</h1>
-          <Cart />
-        </div> */}
       </div>
     </div>
   );

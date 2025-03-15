@@ -1,20 +1,16 @@
-import { React, useContext } from "react";
+import { React, useContext, memo } from "react";
 import axios from "axios";
 
 import { AlbumContext } from "../../albumstore";
 import { UserContext } from "../../store";
-const Cart = ({ myModal, setPhotoUrl }) => {
+const Cart = memo(({ myModal, setPhotoUrl }) => {
   const [albumState, albumDispatch] = useContext(AlbumContext);
   const [userState] = useContext(UserContext);
   console.log("Cart", albumState);
 
-  const getSinglePhoto = (id) => {
+  const getSinglePhoto = (item) => {
     (async () => {
-      const api = "https://api.unsplash.com/photos/";
-      const result = await axios(
-        `${api}${id}?client_id=${userState.accessKey}`
-      );
-      setPhotoUrl(result.data.urls.regular);
+      setPhotoUrl(item?.urls?.raw);
 
       myModal.current.show();
     })();
@@ -51,13 +47,14 @@ const Cart = ({ myModal, setPhotoUrl }) => {
                       href="#"
                       onClick={(e) => {
                         e.preventDefault();
-                        getSinglePhoto(item.id);
+                        // getSinglePhoto(item.id);
+                        getSinglePhoto(item);
                       }}
                     >
                       <img
                         className="table-image object-cover"
-                        width="80"
-                        height="80"
+                        width="90"
+                        height="90"
                         src={`${item?.urls?.small_s3}`}
                         alt=""
                       />
@@ -94,6 +91,6 @@ const Cart = ({ myModal, setPhotoUrl }) => {
       </div>
     </>
   );
-};
+});
 
 export default Cart;

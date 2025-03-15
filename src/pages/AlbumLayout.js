@@ -6,7 +6,7 @@ import {
   useReducer,
   useCallback,
 } from "react";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { Modal } from "bootstrap";
 import PicModal from "../components/PicModal";
 import { AlbumContext, albumReducer, albumInit, alumList } from "../albumstore";
@@ -15,6 +15,8 @@ import Cart from "../components/album/Cart";
 
 const AlbumLayout = () => {
   const reducer = useReducer(albumReducer, albumInit);
+  const navigate = useNavigate();
+
   const modalRef = useRef(null);
   const myModal = useRef(null);
   const [photoUrl, setPhotoUrl] = useState("");
@@ -29,8 +31,18 @@ const AlbumLayout = () => {
     myModal.current.hide();
   }, []);
 
+  const onSearchEnter = (e) => {
+    console.log(e);
+    if (e.key === "Enter") {
+      // setFilterString(e.target.value);
+      console.log(e.target.value);
+      navigate(`/album/search?s=${e.target.value}`);
+    }
+  };
+
   return (
-    <div className="conatiner">
+    // <div className="conatiner">
+    <AlbumContext.Provider value={reducer}>
       <div className="d-flex">
         <PicModal
           modalRef={modalRef}
@@ -38,54 +50,59 @@ const AlbumLayout = () => {
           photoUrl={photoUrl}
         />
 
-        <AlbumContext.Provider value={reducer}>
-          <aside className="side-left vh-100 sticky-top">
-            <div className="vw-100 ">
-              <br />
-              <br />
-              <br />
-              <h3>左側欄</h3>
-              <input type="text" id="filter" className="" />
-
-              <ul>
-                <li>
-                  <NavLink className="nav-link" to="">
-                    搜尋圖片
-                  </NavLink>
-                </li>
-                {alumList.map((item) => {
-                  return (
-                    <li key={item}>
-                      <NavLink to={`/album/search/${item}`}>{item}</NavLink>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </aside>
-
-          <main className="main vw-100">
-            <div className="container">
-              <Outlet />
-            </div>
-          </main>
-
-          <aside className="side-right vh-100 px- sticky-top ">
+        <aside className="side-left vh-100 sticky-top">
+          <div className="vw-100 ">
             <br />
             <br />
             <br />
-            <div className="vw-100">
-              <h1>album cart</h1>
-            </div>
+            <h3>左側欄</h3>
+            <input
+              type="text"
+              id="filter"
+              onKeyUp={onSearchEnter}
+              style={{ width: "150px" }}
+            />
 
-            <div className="overflow-auto ">
+            <ul>
+              <li>
+                <NavLink className="nav-link" to="">
+                  搜尋圖片
+                </NavLink>
+              </li>
+              {alumList.map((item) => {
+                return (
+                  <li key={item}>
+                    <NavLink to={`/album/search/${item}`}>{item}</NavLink>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </aside>
+
+        <main className="main vw-100">
+          <div className="container">
+            <Outlet />
+          </div>
+        </main>
+
+        <div>
+          <br />
+          <br />
+          <h1 className="sticky-top text-start" style={{ top: "100px" }}>
+            album cart
+          </h1>
+
+          <aside className="side-right sticky-top overflow-auto">
+            <div className=" ">
               {/* <Cart  /> */}
               <Cart setPhotoUrl={setPhotoUrl} myModal={myModal}></Cart>
             </div>
           </aside>
-        </AlbumContext.Provider>
+        </div>
       </div>
-    </div>
+    </AlbumContext.Provider>
+    // </div>
   );
 };
 

@@ -1,14 +1,16 @@
 $side-width-left: 140px;
 $side-width-right: 350px;
+$side-height-right: 500px;
 
 .side-left {
   width: $side-width-left;
-  top: 100px;
+  top: 175px;
 }
 
 .side-right {
   width: $side-width-right;
-  top: 100px;
+  height: $side-height-right;
+  top: 175px;
 }
 
 .main {
