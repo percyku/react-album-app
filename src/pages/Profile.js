@@ -25,9 +25,10 @@ function Profile() {
 
   useEffect(() => {
     if (state.username === "") {
+      console.log("Profile login");
       navigate("/login");
     }
-  }, []);
+  });
 
   useEffect(() => {
     console.log("initial myModal");

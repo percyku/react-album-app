@@ -51,8 +51,7 @@ export const userRegister = [
     role: "STUDENT",
     sexual: "men",
     brief: "Hi I'm percy",
-    // accessKey: "GAvxZ9VesndxTx_9NftqgOtZffnTB0YhfGiWGDJA-bs",
-    accessKey: "FBtqwP-G4BL8OApIKPdjFnbxMBg_FeKkAVC9qIdXZLc",
+    accessKey: "",
     albumList: [],
   },
 ];
@@ -89,6 +88,8 @@ export const userReducer = (state, action) => {
     case "UPDATE_USER_DATA":
       setCurrentUser(null);
       userRegister[action.payload.update_id] = action.payload.update_user_data;
+
+      console.log("UPDATE_USER_DATA ", userRegister[action.payload.update_id]);
       return { ...userInit };
     case "ADD_ABLUM_LIST":
       // setCurrentUser(null);

@@ -54,6 +54,7 @@ const ProfileEdit = memo(({ closeProfileModal }) => {
                 data.password == undefined ? state.password : data.password,
               role: data.role,
               sexual: data.sexual,
+              accessKey: data.accessKey,
               brief: data.brief,
             },
             update_id: userRegister.findIndex(
@@ -167,7 +168,7 @@ const ProfileEdit = memo(({ closeProfileModal }) => {
 
         <div className="mb-3">
           <InputItem
-            id="accesskey"
+            id="accessKey"
             type="text"
             errors={errors}
             labelText="UnSplash AccessKey"
@@ -185,7 +186,7 @@ const ProfileEdit = memo(({ closeProfileModal }) => {
             register={register}
             errors={errors}
             rules={{ required: false }}
-            labelText="更改UnSplash accesskey"
+            labelText="更改UnSplash accessKey"
           />
         </div>
 

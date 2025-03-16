@@ -5,21 +5,30 @@ import {
   useState,
   useReducer,
   useCallback,
+  useContext,
 } from "react";
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { Modal } from "bootstrap";
 import PicModal from "../components/PicModal";
+import { UserContext } from "../store";
 import { AlbumContext, albumReducer, albumInit, alumList } from "../albumstore";
 
 import Cart from "../components/album/Cart";
 
 const AlbumLayout = () => {
   const reducer = useReducer(albumReducer, albumInit);
+  const [userState] = useContext(UserContext);
   const navigate = useNavigate();
 
   const modalRef = useRef(null);
   const myModal = useRef(null);
   const [photoUrl, setPhotoUrl] = useState("");
+
+  useEffect(() => {
+    if (userState.username === "") {
+      navigate("/login");
+    }
+  });
 
   useEffect(() => {
     console.log("initial modalRef");
