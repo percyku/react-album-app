@@ -13,45 +13,71 @@ import PicModal from "../components/PicModal";
 import Card from "../components/album/Card";
 import Loading from "../components/Loading";
 import { UserContext } from "../store";
-import {
-  humanData,
-  buildingData,
-  animalData,
-  oceanData,
-  natureData,
-  mountainData,
-} from "../assets/albumsData";
+import { AlbumContext } from "../albumstore";
+// import {
+//   humanData,
+//   buildingData,
+//   animalData,
+//   oceanData,
+//   natureData,
+//   mountainData,
+// } from "../assets/albumsData";
 
 const AlbumChosen = () => {
-  const [userState] = useContext(UserContext);
-  console.log("AlbumChosen", userState);
-
   const { id } = useParams();
+  const [userState] = useContext(UserContext);
+  const [albumState, albumDispatch] = useContext(AlbumContext);
+
   const modalRef = useRef(null);
   const myModal = useRef(null);
   const [photoUrl, setPhotoUrl] = useState("");
-  const [jsonData, setJsonData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const api = "https://api.unsplash.com/search/photos/";
+  const accessKey = userState.accessKey;
+  const [jsonData, setJsonData] = useState([]);
+  const [remaining, setRemaining] = useState(0);
+  const currentPage = useRef(1);
+  const listRef = useRef(null);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  //   setTimeout(() => {
+  //     if (id === "human") {
+  //       setJsonData([...humanData]);
+  //     } else if (id === "animal") {
+  //       setJsonData([...animalData]);
+  //     } else if (id === "building") {
+  //       setJsonData([...buildingData]);
+  //     } else if (id === "nature") {
+  //       setJsonData([...natureData]);
+  //     } else if (id === "ocean") {
+  //       setJsonData([...oceanData]);
+  //     } else if (id === "mountain") {
+  //       setJsonData([...mountainData]);
+  //     }
+  //     setIsLoading(false);
+  //   }, 1500);
+  // }, [id]);
   useEffect(() => {
-    setIsLoading(true);
+    getPhotos(1, true);
+
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    setTimeout(() => {
-      if (id === "human") {
-        setJsonData([...humanData]);
-      } else if (id === "animal") {
-        setJsonData([...animalData]);
-      } else if (id === "building") {
-        setJsonData([...buildingData]);
-      } else if (id === "nature") {
-        setJsonData([...natureData]);
-      } else if (id === "ocean") {
-        setJsonData([...oceanData]);
-      } else if (id === "mountain") {
-        setJsonData([...mountainData]);
+    const scrollEvent = (evt) => {
+      const height =
+        listRef.current.offsetHeight +
+        listRef.current.offsetTop -
+        window.innerHeight;
+      // console.log("scrollEvent height", height);
+      // console.log("scrollEvent window.scrollY", window.scrollY);
+      if (!isLoading && window.scrollY > height - 10) {
+        currentPage.current++;
+        getPhotos(currentPage.current, false);
       }
-      setIsLoading(false);
-    }, 1500);
+    };
+    window.addEventListener("scroll", scrollEvent);
+    return () => window.removeEventListener("scroll", scrollEvent);
   }, [id]);
 
   useEffect(() => {
@@ -64,7 +90,7 @@ const AlbumChosen = () => {
     myModal.current.hide();
   }, []);
 
-  const getSinglePhoto = (item) => {
+  const getSinglePhoto = useCallback((item) => {
     (async () => {
       // const api = "https://api.unsplash.com/photos/";
       // const result = await axios(
@@ -75,20 +101,61 @@ const AlbumChosen = () => {
 
       myModal.current.show();
     })();
-  };
+  }, []);
+
+  const getPhotos = useCallback(
+    async (page = 1, isNew = true) => {
+      try {
+        setIsLoading(true);
+        const result = await axios.get(
+          `${api}?client_id=${accessKey}&query=${id}&page=${page}`
+        );
+        console.log(result);
+        setJsonData((preData) => {
+          // console.log("getNew Data");
+          if (isNew) {
+            return [...result.data.results];
+          }
+          return [...preData, ...result.data.results];
+        });
+        currentPage.current = page;
+        setRemaining(result.headers["x-ratelimit-remaining"]);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [id]
+  );
+
+  const handleAddToAlbumCart = useCallback((picture) => {
+    console.log("handleAddToAlbumCart", picture);
+    albumDispatch({
+      type: "ADD_ALBUM_TO_CART",
+      payload: {
+        ...picture,
+      },
+    });
+  }, []);
 
   return (
     <div>
       <Loading isLoading={isLoading} />
+      <p>剩餘請求次數：{remaining}</p>
       <div className="row ">
         {/* <div className="col-md-9 "> */}
         <div className="col-md-12 ">
-          <div className="row row-cols-3 g-3 ">
+          <div className="row row-cols-3 g-3 " ref={listRef}>
             {jsonData?.map((item) => {
               return (
-                <div className="col" key={item.id}>
-                  <Card item={item} getSinglePhoto={getSinglePhoto} />
-                </div>
+                <Card
+                  item={item}
+                  getSinglePhoto={getSinglePhoto}
+                  btnText={"加入收藏"}
+                  btnHandler={handleAddToAlbumCart}
+                />
               );
             })}
           </div>

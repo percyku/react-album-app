@@ -131,6 +131,10 @@ export const albumReducer = (state, action) => {
         state.albumList.splice(idx, 1);
       }
       return { ...state };
+    case "CLEAR_CART_ALBUM_LIST":
+      state.albumList = [];
+      albumInit.albumList = [];
+      return { ...state };
     default:
       return state;
   }

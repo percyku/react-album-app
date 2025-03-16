@@ -1,13 +1,13 @@
 import { React, useContext, memo } from "react";
 import axios from "axios";
 
-import { AlbumContext } from "../../albumstore";
+import { AlbumContext, albumInit } from "../../albumstore";
 import { UserContext } from "../../store";
 const Cart = memo(({ myModal, setPhotoUrl }) => {
   const [albumState, albumDispatch] = useContext(AlbumContext);
-  const [userState] = useContext(UserContext);
-  console.log("Cart", albumState);
-
+  const [userState, userDispatch] = useContext(UserContext);
+  console.log("Cart albumState", albumState);
+  console.log("Cart userState", userState);
   const getSinglePhoto = (item) => {
     (async () => {
       setPhotoUrl(item?.urls?.raw);
@@ -15,14 +15,46 @@ const Cart = memo(({ myModal, setPhotoUrl }) => {
       myModal.current.show();
     })();
   };
+
+  const handlerAlbumList = () => {
+    const newAlbumList = [];
+
+    // if (userState.albumList.length === 0) {
+    // } else {
+    // }
+    albumState.albumList.forEach((item1) => {
+      if (
+        userState.albumList.findIndex((item2) => item1.id == item2.id) === -1
+      ) {
+        newAlbumList.push(item1);
+      }
+    });
+    console.log("newAlbumList", newAlbumList);
+
+    userDispatch({
+      type: "ADD_ABLUM_LIST",
+      payload: {
+        ...userState,
+        newAlbumList: [...newAlbumList],
+      },
+    });
+
+    albumDispatch({
+      type: "CLEAR_CART_ALBUM_LIST",
+      payload: { ...albumState },
+    });
+    //navigate("/login");
+  };
   return (
     <>
       <div
-        className={` ${albumState.albumList.length > 0 ? "bg-light p-3" : ""} `}
+        className={` ${
+          albumState?.albumList?.length > 0 ? "bg-light p-3" : ""
+        } `}
       >
         <table className="table align-middle">
           <tbody>
-            {albumState.albumList?.map((item) => {
+            {albumState?.albumList?.map((item) => {
               return (
                 <tr key={item?.id}>
                   <td>
@@ -80,6 +112,7 @@ const Cart = memo(({ myModal, setPhotoUrl }) => {
                     type="button"
                     href="#"
                     className="btn btn-outline-dark w-100 "
+                    onClick={handlerAlbumList}
                   >
                     確定收藏
                   </button>

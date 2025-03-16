@@ -1,17 +1,6 @@
 import { React, useContext } from "react";
 import { AlbumContext } from "../../albumstore";
-const Card = ({ item, getSinglePhoto }) => {
-  const [albumState, albumDispatch] = useContext(AlbumContext);
-  const handleAddToAlbumCart = (picture) => {
-    console.log("handleAddToAlbumCart", picture);
-    albumDispatch({
-      type: "ADD_ALBUM_TO_CART",
-      payload: {
-        ...picture,
-      },
-    });
-  };
-
+const Card = ({ item, getSinglePhoto, btnText, btnHandler }) => {
   return (
     <div className="col" key={item.id}>
       <a
@@ -35,10 +24,10 @@ const Card = ({ item, getSinglePhoto }) => {
         href="#"
         className="btn btn-outline-dark w-100"
         onClick={() => {
-          handleAddToAlbumCart(item);
+          btnHandler(item);
         }}
       >
-        加入收藏
+        {btnText}
       </button>
     </div>
   );

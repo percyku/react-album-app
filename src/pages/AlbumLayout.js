@@ -56,19 +56,25 @@ const AlbumLayout = () => {
             <br />
             <br />
             <h3>左側欄</h3>
-            <input
+            {/* <input
               type="text"
               id="filter"
               onKeyUp={onSearchEnter}
               style={{ width: "150px" }}
-            />
+            /> */}
 
+            <div class="input-group  input-group-sm mb-3">
+              <span class="input-group-text" id="basic-filter">
+                搜尋
+              </span>
+              <input
+                type="text"
+                id="filter"
+                onKeyUp={onSearchEnter}
+                style={{ width: "100px" }}
+              />
+            </div>
             <ul>
-              <li>
-                <NavLink className="nav-link" to="">
-                  搜尋圖片
-                </NavLink>
-              </li>
               {alumList.map((item) => {
                 return (
                   <li key={item}>

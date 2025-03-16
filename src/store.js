@@ -1,32 +1,5 @@
 import { createContext } from "react";
 
-// export const userInit = {
-//   username:
-//     `${process.env.REACT_APP_USERNAME}` !== "undefined"
-//       ? `${process.env.REACT_APP_USERNAME}`
-//       : "",
-//   password:
-//     `${process.env.REACT_APP_PASSWORD}` !== "undefined"
-//       ? `${process.env.REACT_APP_PASSWORD}`
-//       : "",
-//   role:
-//     `${process.env.REACT_APP_ROLE}` !== "undefined"
-//       ? `${process.env.REACT_APP_ROLE}`
-//       : "",
-//   sexual:
-//     `${process.env.REACT_APP_SEXUAL}` !== "undefined"
-//       ? `${process.env.REACT_APP_SEXUAL}`
-//       : "",
-//   brief:
-//     `${process.env.REACT_APP_BRIEF}` !== "undefined"
-//       ? `${process.env.REACT_APP_BRIEF}`
-//       : "",
-//   accessKey:
-//     `${process.env.REACT_APP_ACCESSKEY}` !== "undefined"
-//       ? `${process.env.REACT_APP_ACCESSKEY}`
-//       : "",
-// };
-
 export const userInit = {
   username:
     process.env.REACT_APP_USERNAME !== undefined
@@ -50,6 +23,7 @@ export const userInit = {
     process.env.REACT_APP_ACCESSKEY !== undefined
       ? process.env.REACT_APP_ACCESSKEY
       : "",
+  albumList: [],
 };
 
 export const userRegister = [
@@ -60,6 +34,7 @@ export const userRegister = [
     sexual: "men",
     brief: "Hi I'm test123",
     accessKey: "",
+    albumList: [],
   },
   {
     username: "test321",
@@ -68,6 +43,7 @@ export const userRegister = [
     sexual: "female",
     brief: "Hi I'm test321",
     accessKey: "",
+    albumList: [],
   },
   {
     username: "percy",
@@ -77,6 +53,7 @@ export const userRegister = [
     brief: "Hi I'm percy",
     // accessKey: "GAvxZ9VesndxTx_9NftqgOtZffnTB0YhfGiWGDJA-bs",
     accessKey: "FBtqwP-G4BL8OApIKPdjFnbxMBg_FeKkAVC9qIdXZLc",
+    albumList: [],
   },
 ];
 
@@ -113,6 +90,16 @@ export const userReducer = (state, action) => {
       setCurrentUser(null);
       userRegister[action.payload.update_id] = action.payload.update_user_data;
       return { ...userInit };
+    case "ADD_ABLUM_LIST":
+      // setCurrentUser(null);
+      state.albumList = [...state.albumList, ...action.payload.newAlbumList];
+      setCurrentUser({ ...state });
+      return { ...state };
+    case "REMOVE_PICTURE":
+      // setCurrentUser(null);
+      state.albumList = [...action.payload.newAlbumList];
+      setCurrentUser({ ...state });
+      return { ...state };
     default:
       return state;
   }
