@@ -15,12 +15,14 @@ import Loading from "../components/Loading";
 
 import { UserContext } from "../store";
 import { AlbumContext } from "../albumstore";
+import { MessageContext, handleMessage } from "../messageStore";
 
 const AlbumSearch = () => {
   const [searchParams] = useSearchParams();
   console.log("AlbumSearch params", searchParams.get("s"));
   const [userState] = useContext(UserContext);
-  const [albumState, albumDispatch] = useContext(AlbumContext);
+  const [, albumDispatch] = useContext(AlbumContext);
+  const [, messageDispatch] = useContext(MessageContext);
   const [isLoading, setIsLoading] = useState(false);
   const modalRef = useRef(null);
   const myModal = useRef(null);
@@ -112,6 +114,13 @@ const AlbumSearch = () => {
         ...picture,
       },
     });
+    handleMessage(
+      messageDispatch,
+      "success",
+      "新增至相片Cart",
+      "新增成功",
+      1000
+    );
   }, []);
 
   return (

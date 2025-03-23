@@ -1,8 +1,8 @@
-import { React, useEffect, useRef, useState, useContext } from "react";
+import { React, useReducer } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Message from "../components/Message";
 
-import { useReducer } from "react";
 import {
   UserContext,
   userReducer,
@@ -10,6 +10,12 @@ import {
   getCurrentUser,
   setCurrentUser,
 } from "../store";
+
+import {
+  MessageContext,
+  messgaeReducer,
+  initMessageState,
+} from "../messageStore";
 
 function FormLayout() {
   console.log("FormLayout", getCurrentUser());
@@ -19,13 +25,16 @@ function FormLayout() {
   }
 
   const reducer = useReducer(userReducer, getCurrentUser());
-
+  const messageReducer = useReducer(messgaeReducer, initMessageState);
   return (
     <>
-      <UserContext.Provider value={reducer}>
-        <Navbar />
-        <Outlet />
-      </UserContext.Provider>
+      <MessageContext.Provider value={messageReducer}>
+        <UserContext.Provider value={reducer}>
+          <Message />
+          <Navbar />
+          <Outlet />
+        </UserContext.Provider>
+      </MessageContext.Provider>
     </>
   );
 }

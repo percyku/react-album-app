@@ -73,9 +73,9 @@ const AlbumLayout = () => {
             /> */}
 
             <div class="input-group  input-group-sm mb-3">
-              <span class="input-group-text" id="basic-filter">
+              <label class="input-group-text" for="filter" id="basic-filter">
                 搜尋
-              </span>
+              </label>
               <input
                 type="text"
                 id="filter"

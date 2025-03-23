@@ -14,6 +14,7 @@ import Card from "../components/album/Card";
 import Loading from "../components/Loading";
 import { UserContext } from "../store";
 import { AlbumContext } from "../albumstore";
+import { MessageContext, handleMessage } from "../messageStore";
 // import {
 //   humanData,
 //   buildingData,
@@ -27,6 +28,7 @@ const AlbumChosen = () => {
   const { id } = useParams();
   const [userState] = useContext(UserContext);
   const [albumState, albumDispatch] = useContext(AlbumContext);
+  const [, messageDispatch] = useContext(MessageContext);
 
   const modalRef = useRef(null);
   const myModal = useRef(null);
@@ -138,6 +140,13 @@ const AlbumChosen = () => {
         ...picture,
       },
     });
+    handleMessage(
+      messageDispatch,
+      "success",
+      "新增至相片Cart",
+      "新增成功",
+      1000
+    );
   }, []);
 
   return (

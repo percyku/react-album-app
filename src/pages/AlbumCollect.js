@@ -11,9 +11,11 @@ import PicModal from "../components/PicModal";
 import Card from "../components/album/Card";
 import Loading from "../components/Loading";
 import { UserContext } from "../store";
+import { MessageContext, handleMessage } from "../messageStore";
 
 const AlbumCollect = () => {
   const [userState, userDispatch] = useContext(UserContext);
+  const [, messageDispatch] = useContext(MessageContext);
   const modalRef = useRef(null);
   const myModal = useRef(null);
   const [photoUrl, setPhotoUrl] = useState("");
@@ -38,6 +40,14 @@ const AlbumCollect = () => {
         newAlbumList: newAlbumList,
       },
     });
+
+    handleMessage(
+      messageDispatch,
+      "danger",
+      "移除至相片收藏",
+      "移除成功",
+      1000
+    );
   }, []);
 
   const getSinglePhoto = useCallback((item) => {
@@ -53,7 +63,6 @@ const AlbumCollect = () => {
         <div className="col-md-12 ">
           <div className="row row-cols-3 g-3 ">
             {userState?.albumList?.map((item) => {
-              console.log(item.id);
               return (
                 <Card
                   item={item}

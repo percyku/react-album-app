@@ -1,11 +1,13 @@
 import { React, useContext, memo } from "react";
-import axios from "axios";
 
-import { AlbumContext, albumInit } from "../../albumstore";
+import { AlbumContext } from "../../albumstore";
 import { UserContext } from "../../store";
+import { MessageContext, handleMessage } from "../../messageStore";
 const Cart = memo(({ myModal, setPhotoUrl }) => {
   const [albumState, albumDispatch] = useContext(AlbumContext);
   const [userState, userDispatch] = useContext(UserContext);
+  const [, messageDispatch] = useContext(MessageContext);
+
   console.log("Cart albumState", albumState);
   console.log("Cart userState", userState);
   const getSinglePhoto = (item) => {
@@ -44,6 +46,14 @@ const Cart = memo(({ myModal, setPhotoUrl }) => {
       payload: { ...albumState },
     });
     //navigate("/login");
+
+    handleMessage(
+      messageDispatch,
+      "success",
+      "新增至相片收藏",
+      "新增成功",
+      1000
+    );
   };
   return (
     <>
@@ -68,6 +78,13 @@ const Cart = memo(({ myModal, setPhotoUrl }) => {
                             ...item,
                           },
                         });
+                        handleMessage(
+                          messageDispatch,
+                          "danger",
+                          "移除至購物車",
+                          "移除成功",
+                          1000
+                        );
                       }}
                     >
                       x
