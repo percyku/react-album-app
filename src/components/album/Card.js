@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import { React } from "react";
 const Card = ({ item, getSinglePhoto, btnText, btnHandler }) => {
   return (
     <div className="col" key={item.id}>
