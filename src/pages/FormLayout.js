@@ -9,13 +9,13 @@ import {
   userInit,
   getCurrentUser,
   setCurrentUser,
-} from "../store";
+} from "../store/userStore";
 
 import {
   MessageContext,
   messgaeReducer,
   initMessageState,
-} from "../messageStore";
+} from "../store/messageStore";
 
 function FormLayout() {
   console.log("FormLayout", getCurrentUser());

@@ -1,5 +1,4 @@
 import { React, useContext } from "react";
-import { AlbumContext } from "../../albumstore";
 const Card = ({ item, getSinglePhoto, btnText, btnHandler }) => {
   return (
     <div className="col" key={item.id}>

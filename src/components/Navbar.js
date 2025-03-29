@@ -1,6 +1,6 @@
 import { React, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { getCurrentUser, userRegister, UserContext } from "../store";
+import { getCurrentUser, userRegister, UserContext } from "../store/userStore";
 
 const Navbar = () => {
   const [state, dispatch] = useContext(UserContext);

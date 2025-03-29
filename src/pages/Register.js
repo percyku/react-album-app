@@ -4,7 +4,7 @@ import { useForm, useWatch } from "react-hook-form";
 import InputItem from "../components/form/InputItem";
 import SelectItem from "../components/form/SelectItem";
 import Loading from "../components/Loading";
-import { Roles, userRegister, UserContext } from "../store";
+import { Roles, userRegister, UserContext } from "../store/userStore";
 
 function Register() {
   const navigate = useNavigate();

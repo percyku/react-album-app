@@ -13,7 +13,7 @@ import { Modal } from "bootstrap";
 import EditModal from "../components/EditModal";
 import ProfileEdit from "./ProfileEdit";
 
-import { UserContext, Roles } from "../store";
+import { UserContext, Roles } from "../store/userStore";
 
 function Profile() {
   const navigate = useNavigate();

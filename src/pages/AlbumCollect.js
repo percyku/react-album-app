@@ -9,9 +9,8 @@ import {
 import { Modal } from "bootstrap";
 import PicModal from "../components/PicModal";
 import Card from "../components/album/Card";
-import Loading from "../components/Loading";
-import { UserContext } from "../store";
-import { MessageContext, handleMessage } from "../messageStore";
+import { UserContext } from "../store/userStore";
+import { MessageContext, handleMessage } from "../store/messageStore";
 
 const AlbumCollect = () => {
   const [userState, userDispatch] = useContext(UserContext);

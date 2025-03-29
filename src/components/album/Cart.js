@@ -1,8 +1,8 @@
 import { React, useContext, memo } from "react";
 
-import { AlbumContext } from "../../albumstore";
-import { UserContext } from "../../store";
-import { MessageContext, handleMessage } from "../../messageStore";
+import { AlbumContext } from "../../store/albumStore";
+import { UserContext } from "../../store/userStore";
+import { MessageContext, handleMessage } from "../../store/messageStore";
 const Cart = memo(({ myModal, setPhotoUrl }) => {
   const [albumState, albumDispatch] = useContext(AlbumContext);
   const [userState, userDispatch] = useContext(UserContext);

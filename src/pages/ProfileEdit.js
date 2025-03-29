@@ -7,7 +7,7 @@ import SelectItem from "../components/form/SelectItem";
 import CheckBoxRadioItem from "../components/form/CheckBoxRadioItem";
 import TextArea from "../components/form/TextArea";
 import Loading from "../components/Loading";
-import { UserContext, Roles, userRegister } from "../store";
+import { UserContext, Roles, userRegister } from "../store/userStore";
 
 const ProfileEdit = memo(({ closeProfileModal }) => {
   const navigate = useNavigate();

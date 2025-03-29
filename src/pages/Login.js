@@ -5,7 +5,7 @@ import InputItem from "../components/form/InputItem";
 import SelectItem from "../components/form/SelectItem";
 import CheckBoxRadioItem from "../components/form/CheckBoxRadioItem";
 import Loading from "../components/Loading";
-import { UserContext, Roles, userRegister } from "../store";
+import { UserContext, Roles, userRegister } from "../store/userStore";
 //import AuthService from "../services/auth.service";
 
 function Login() {

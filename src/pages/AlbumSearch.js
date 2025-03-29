@@ -13,9 +13,9 @@ import PicModal from "../components/PicModal";
 import Card from "../components/album/Card";
 import Loading from "../components/Loading";
 
-import { UserContext } from "../store";
-import { AlbumContext } from "../albumstore";
-import { MessageContext, handleMessage } from "../messageStore";
+import { AlbumContext } from "../store/albumStore";
+import { UserContext } from "../store/userStore";
+import { MessageContext, handleMessage } from "../store/messageStore";
 
 const AlbumSearch = () => {
   const [searchParams] = useSearchParams();

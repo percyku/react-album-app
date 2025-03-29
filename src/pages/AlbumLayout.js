@@ -10,8 +10,13 @@ import {
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { Modal } from "bootstrap";
 import PicModal from "../components/PicModal";
-import { UserContext } from "../store";
-import { AlbumContext, albumReducer, albumInit, alumList } from "../albumstore";
+import { UserContext } from "../store/userStore";
+import {
+  AlbumContext,
+  albumReducer,
+  albumInit,
+  alumList,
+} from "../store/albumStore";
 
 import Cart from "../components/album/Cart";
 
