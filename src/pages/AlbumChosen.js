@@ -9,12 +9,14 @@ import {
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Modal } from "bootstrap";
+import { useDispatch } from "react-redux";
+import { createAsyncMessage } from "../slice/messageSlice";
 import PicModal from "../components/PicModal";
 import Card from "../components/album/Card";
 import Loading from "../components/Loading";
 import { UserContext } from "../store/userStore";
 import { AlbumContext } from "../store/albumStore";
-import { MessageContext, handleMessage } from "../store/messageStore";
+// import { MessageContext, handleMessage } from "../store/messageStore";
 // import {
 //   humanData,
 //   buildingData,
@@ -27,8 +29,9 @@ import { MessageContext, handleMessage } from "../store/messageStore";
 const AlbumChosen = () => {
   const { id } = useParams();
   const [userState] = useContext(UserContext);
-  const [albumState, albumDispatch] = useContext(AlbumContext);
-  const [, messageDispatch] = useContext(MessageContext);
+  const [, albumDispatch] = useContext(AlbumContext);
+  // const [, messageDispatch] = useContext(MessageContext);
+  const dispatch = useDispatch();
 
   const modalRef = useRef(null);
   const myModal = useRef(null);
@@ -133,19 +136,29 @@ const AlbumChosen = () => {
   );
 
   const handleAddToAlbumCart = useCallback((picture) => {
-    console.log("handleAddToAlbumCart", picture);
+    // console.log("handleAddToAlbumCart", picture);
     albumDispatch({
       type: "ADD_ALBUM_TO_CART",
       payload: {
         ...picture,
       },
     });
-    handleMessage(
-      messageDispatch,
-      "success",
-      "新增至相片Cart",
-      "新增成功",
-      1000
+    // handleMessage(
+    //   messageDispatch,
+    //   "success",
+    //   "新增至相片Cart",
+    //   "新增成功",
+    //   1000
+    // );
+    dispatch(
+      createAsyncMessage({
+        id: new Date(),
+        success: true,
+        type: "success",
+        title: "新增至相片Cart",
+        message: "新增成功",
+        time: 1000,
+      })
     );
   }, []);
 

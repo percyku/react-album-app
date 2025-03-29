@@ -8,6 +8,8 @@ import {
 } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { createAsyncMessage } from "../slice/messageSlice";
 import { Modal } from "bootstrap";
 import PicModal from "../components/PicModal";
 import Card from "../components/album/Card";
@@ -15,14 +17,15 @@ import Loading from "../components/Loading";
 
 import { AlbumContext } from "../store/albumStore";
 import { UserContext } from "../store/userStore";
-import { MessageContext, handleMessage } from "../store/messageStore";
+// import { MessageContext, handleMessage } from "../store/messageStore";
 
 const AlbumSearch = () => {
   const [searchParams] = useSearchParams();
-  console.log("AlbumSearch params", searchParams.get("s"));
+  // console.log("AlbumSearch params", searchParams.get("s"));
   const [userState] = useContext(UserContext);
   const [, albumDispatch] = useContext(AlbumContext);
-  const [, messageDispatch] = useContext(MessageContext);
+  const dispatch = useDispatch();
+  // const [, messageDispatch] = useContext(MessageContext);
   const [isLoading, setIsLoading] = useState(false);
   const modalRef = useRef(null);
   const myModal = useRef(null);
@@ -107,19 +110,30 @@ const AlbumSearch = () => {
   );
 
   const handleAddToAlbumCart = useCallback((picture) => {
-    console.log("handleAddToAlbumCart", picture);
+    // console.log("handleAddToAlbumCart", picture);
     albumDispatch({
       type: "ADD_ALBUM_TO_CART",
       payload: {
         ...picture,
       },
     });
-    handleMessage(
-      messageDispatch,
-      "success",
-      "新增至相片Cart",
-      "新增成功",
-      1000
+    // handleMessage(
+    //   messageDispatch,
+    //   "success",
+    //   "新增至相片Cart",
+    //   "新增成功",
+    //   1000
+    // );
+
+    dispatch(
+      createAsyncMessage({
+        id: new Date(),
+        success: true,
+        type: "success",
+        title: "新增至相片Cart",
+        message: "新增成功",
+        time: 1000,
+      })
     );
   }, []);
 

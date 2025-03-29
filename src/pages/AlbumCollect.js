@@ -7,14 +7,18 @@ import {
   useCallback,
 } from "react";
 import { Modal } from "bootstrap";
+import { useDispatch } from "react-redux";
+import { createAsyncMessage } from "../slice/messageSlice";
+
 import PicModal from "../components/PicModal";
 import Card from "../components/album/Card";
 import { UserContext } from "../store/userStore";
-import { MessageContext, handleMessage } from "../store/messageStore";
+// import { MessageContext, handleMessage } from "../store/messageStore";
 
 const AlbumCollect = () => {
   const [userState, userDispatch] = useContext(UserContext);
-  const [, messageDispatch] = useContext(MessageContext);
+  const dispatch = useDispatch();
+  // const [, messageDispatch] = useContext(MessageContext);
   const modalRef = useRef(null);
   const myModal = useRef(null);
   const [photoUrl, setPhotoUrl] = useState("");
@@ -40,12 +44,23 @@ const AlbumCollect = () => {
       },
     });
 
-    handleMessage(
-      messageDispatch,
-      "danger",
-      "移除至相片收藏",
-      "移除成功",
-      1000
+    // handleMessage(
+    //   messageDispatch,
+    //   "danger",
+    //   "移除至相片收藏",
+    //   "移除成功",
+    //   1000
+    // );
+
+    dispatch(
+      createAsyncMessage({
+        id: new Date(),
+        success: true,
+        type: "danger",
+        title: "移除至相片收藏",
+        message: "移除成功",
+        time: 1000,
+      })
     );
   }, []);
 

@@ -1,15 +1,18 @@
 import { React, useContext, memo } from "react";
-
+import { useDispatch } from "react-redux";
+import { createAsyncMessage } from "../../slice/messageSlice";
+// import { MessageContext, handleMessage } from "../../store/messageStore";
 import { AlbumContext } from "../../store/albumStore";
 import { UserContext } from "../../store/userStore";
-import { MessageContext, handleMessage } from "../../store/messageStore";
+
 const Cart = memo(({ myModal, setPhotoUrl }) => {
   const [albumState, albumDispatch] = useContext(AlbumContext);
   const [userState, userDispatch] = useContext(UserContext);
-  const [, messageDispatch] = useContext(MessageContext);
+  // const [, messageDispatch] = useContext(MessageContext);
+  const dispatch = useDispatch();
 
-  console.log("Cart albumState", albumState);
-  console.log("Cart userState", userState);
+  // console.log("Cart albumState", albumState);
+  // console.log("Cart userState", userState);
   const getSinglePhoto = (item) => {
     (async () => {
       setPhotoUrl(item?.urls?.raw);
@@ -31,7 +34,7 @@ const Cart = memo(({ myModal, setPhotoUrl }) => {
         newAlbumList.push(item1);
       }
     });
-    console.log("newAlbumList", newAlbumList);
+    // console.log("newAlbumList", newAlbumList);
 
     userDispatch({
       type: "ADD_ABLUM_LIST",
@@ -47,12 +50,23 @@ const Cart = memo(({ myModal, setPhotoUrl }) => {
     });
     //navigate("/login");
 
-    handleMessage(
-      messageDispatch,
-      "success",
-      "新增至相片收藏",
-      "新增成功",
-      1000
+    // handleMessage(
+    //   messageDispatch,
+    //   "success",
+    //   "新增至相片收藏",
+    //   "新增成功",
+    //   1000
+    // );
+
+    dispatch(
+      createAsyncMessage({
+        id: new Date(),
+        success: true,
+        type: "success",
+        title: "新增至相片收藏",
+        message: "新增成功",
+        time: 1000,
+      })
     );
   };
   return (
@@ -78,12 +92,22 @@ const Cart = memo(({ myModal, setPhotoUrl }) => {
                             ...item,
                           },
                         });
-                        handleMessage(
-                          messageDispatch,
-                          "danger",
-                          "移除至購物車",
-                          "移除成功",
-                          1000
+                        // handleMessage(
+                        //   messageDispatch,
+                        //   "danger",
+                        //   "移除至購物車",
+                        //   "移除成功",
+                        //   1000
+                        // );
+                        dispatch(
+                          createAsyncMessage({
+                            id: new Date(),
+                            success: true,
+                            type: "danger",
+                            title: "移除至購物車",
+                            message: "移除成功",
+                            time: 1000,
+                          })
                         );
                       }}
                     >

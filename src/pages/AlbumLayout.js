@@ -36,7 +36,7 @@ const AlbumLayout = () => {
   });
 
   useEffect(() => {
-    console.log("initial modalRef");
+    // console.log("initial modalRef");
     myModal.current = new Modal(modalRef.current);
   }, []);
 
@@ -48,8 +48,7 @@ const AlbumLayout = () => {
   const onSearchEnter = (e) => {
     console.log(e);
     if (e.key === "Enter") {
-      // setFilterString(e.target.value);
-      console.log(e.target.value);
+      // console.log(e.target.value);
       navigate(`/album/search?s=${e.target.value}`);
     }
   };
